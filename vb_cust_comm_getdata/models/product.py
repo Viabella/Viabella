@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
+from odoo import models
 
-from odoo import models, fields, api
-
-class vb_ProdComm(models.Model):
-    _inherit = ['product.product']
+class Product(models.Model):
+    _inherit = 'product.product'
     
-    @api.multi
     def vb_GetPProdID(self):
         query = """select coalesce(pi.name), coalesce(rd.name, '')
                      from product_product pt
@@ -17,6 +14,5 @@ class vb_ProdComm(models.Model):
         for des, id in self.env.cr.fetchall():
             items = [des, id]
             results.append(items)
-        print(results)
         return results
 

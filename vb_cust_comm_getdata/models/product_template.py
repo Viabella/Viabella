@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
+from odoo import models, api
 
-from odoo import models, fields, api
-
-class vb_ProdComm(models.Model):
-    _inherit = ['product.template']
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
     
-    @api.multi
+    @api.model
     def vb_GetProdID(self):
         query = """select pt.name, coalesce(rd.name, '')
                      from product_template pt
@@ -16,10 +14,9 @@ class vb_ProdComm(models.Model):
         for des, id in self.env.cr.fetchall():
             items = [des, id]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_GetProdOH(self):
         query = """select pt.name, sns.x_name, sl.name, pq.quantity - pq.reserved_quantity
                     from product_template pt
@@ -32,12 +29,9 @@ class vb_ProdComm(models.Model):
         for prod, seas, locn, qty in self.env.cr.fetchall():
             items = [prod, seas, locn, qty]
             results.append(items)
-        print(results)
         return results
     
-#                        pt.barcode,
-#                        pt.standard_price,
-    @api.multi
+    @api.model
     def vb_GetProdNewUpdates(self):
         query = """select coalesce(pt.name, ''), 
                         coalesce(sns.x_name,  ''),
@@ -91,10 +85,9 @@ class vb_ProdComm(models.Model):
         for prod, seas, pcat, sbtitem, rprce, wprce, uom, brand, bsort, ctocom, contorig, catsort, niform, panel3, sfold, tfold, bbow, brib, ccord, ffab, flocking, glit, protsheet, shaker, varn, virk, acet, beads, blind, cello, dangl, puff, gpuff, hmade, ptype, reuse, seqns, sscreen, vellum, combo, actv in self.env.cr.fetchall():
             items = [prod, seas, pcat, sbtitem, rprce, wprce, uom, brand, bsort, ctocom, contorig, catsort, niform, panel3, sfold, tfold, bbow, brib, ccord, ffab, flocking, glit, protsheet, shaker, varn, virk, acet, beads, blind, cello, dangl, puff, gpuff, hmade, ptype, reuse, seqns, sscreen, vellum, combo, actv]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_GetProdNewUpdates2(self):
         query = """select coalesce(pt.name, ''), 
                         coalesce(sns.x_name,  ''),
@@ -122,10 +115,9 @@ class vb_ProdComm(models.Model):
         for prod, seas, catval, glitdat, glitdat2, lcut, sref, scol, uvgloss, virkdata, bdata, fcol, altfcol, inkfoil, tipin, tipon, addinfo in self.env.cr.fetchall():
             items = [prod, seas, catval, glitdat, glitdat2, lcut, sref, scol, uvgloss, virkdata, bdata, fcol, altfcol, inkfoil, tipin, tipon, addinfo]
             results.append(items)
-        print(results)
         return results
         
-    @api.multi
+    @api.model
     def vb_GetProdNewUpdates3(self):
         query = """select coalesce(pt.name, ''), 
                         coalesce(sns.x_name,  ''),
@@ -143,10 +135,9 @@ class vb_ProdComm(models.Model):
         for prod, seas, descr, gems, bcode in self.env.cr.fetchall():
             items = [prod, seas, descr, gems, bcode]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_ListInactItem(self):
         query = """select coalesce(pt.name, ''), 
                         coalesce(sns.x_name,  ''),
@@ -161,10 +152,9 @@ class vb_ProdComm(models.Model):
         for prod, seas, descr, gems in self.env.cr.fetchall():
             items = [prod, seas, descr, gems]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_GetProdSBT(self):
         query = """select pt.name, coalesce(sbt.name, ''), coalesce(aa.code, ''), coalesce(xs.x_name, '')
                     from product_template pt
@@ -178,10 +168,9 @@ class vb_ProdComm(models.Model):
         for prod, tname, sls, seas in self.env.cr.fetchall():
             items = [prod, tname, sls, seas]
             results.append(items)
-        print(results)
         return results
     
-    @api.multi
+    @api.model
     def vb_GetProdAccts(self):
         query = """select pt.name, coalesce(aa.code, '')
                     from product_template pt
@@ -193,6 +182,5 @@ class vb_ProdComm(models.Model):
         for prod, prc in self.env.cr.fetchall():
             items = [prod, prc]
             results.append(items)
-        print(results)
         return results
     

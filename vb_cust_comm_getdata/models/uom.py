@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
+from odoo import models, api
 
-from odoo import models, fields, api
-
-class vb_CustComm(models.Model):
-    _inherit = ['uom.uom']
+class Uom(models.Model):
+    _inherit = 'uom.uom'
     
-    @api.multi
+    @api.model
     def vb_GetUOMID(self):
         query = """select ai.name, coalesce(ir.name, '')
                      from uom_uom ai
@@ -17,5 +15,4 @@ class vb_CustComm(models.Model):
         for name, id in self.env.cr.fetchall():
             items = [name, id]
             results.append(items)
-        print(results)
         return results

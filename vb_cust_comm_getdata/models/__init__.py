@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-
-from . import resmod
-from . import prodmod
-#from . import irmod
-from . import acctmod
-from . import uommod
-from . import pprodmod
+from . import res_partner
+from . import product
+from . import account_move
+from . import uom
+from . import product_template
 

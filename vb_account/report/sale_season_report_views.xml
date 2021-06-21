@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_season_report_tree" model="ir.ui.view">
+         <field name="name">sale.season.report.tree</field>
+         <field name="model">sale.season.report</field>
+         <field name="arch" type="xml">
+            <tree sample="1" create="0" edit="0" delete="0">
+                <field name="currency_id" invisible="1"/>
+                <field name="season_id" string="Season" invisible="1"/>
+                <field name="invoice_date" invisible="1"/>
+                <field name="partner_id" string="Account"/>
+                <field name="company_name" string="Comapny Name"/>
+                <field name="qty_sold" string="Qty Sold"/>
+                <field name="sold_amount"/>
+                <field name="qty_returned"/>
+                <field name="returned_amount"/>
+                <field name="sell_through"/>
+                <field name="prior_qty_sold"/>
+                <field name="prior_sold_amount"/>
+                <field name="prior_qty_returned"/>
+                <field name="prior_returned_amount"/>
+                <field name="season_guarantee_pecentage" string='SeasGuarPct'/>
+            </tree>
+         </field>
+    </record>
+
+    <record id="view_sale_season_report_search" model="ir.ui.view">
+        <field name="name">sale.season.report.search</field>
+        <field name="model">sale.season.report</field>
+        <field name="arch" type="xml">
+            <search string="Sales Season Report">
+                <field name="season_id"/>
+                <field name="partner_id"/>
+                <field name="selected_year"/>
+                <separator/>
+                <filter string="This year" name="report_this_year"
+                        domain="[('selected_year', '=', context_today().year)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Season" name="group_by_season_id" context="{'group_by':'season_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_season_report" model="ir.actions.act_window">
+        <field name="name">Sales Season Report</field>
+        <field name="res_model">sale.season.report</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id"></field>  <!-- force empty -->
+        <field name="context">{'search_default_group_by_season_id': 1, 'groupExpandView': True, 'search_default_report_this_year':1}</field>
+    </record>
+
+    <menuitem id="menu_sales_season_report"
+            name="Sales Season Report"
+            action="action_sale_season_report"
+            parent="account.account_reports_management_menu"/>
+</odoo>

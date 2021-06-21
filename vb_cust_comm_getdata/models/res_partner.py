@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
+from odoo import models, api
 
-from odoo import models, fields, api
-
-class vb_CustComm(models.Model):
-    _inherit = ['res.partner']
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
     
-    @api.multi
+    @api.model
     def vb_GetCustID(self):
         query = """select coalesce(rp.name, ''), coalesce(ir.name, '')
                      from res_partner rp
@@ -19,7 +17,7 @@ class vb_CustComm(models.Model):
         print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_GetCustNewUpdates(self):
         query = """select coalesce(rp.name, ''),
                      coalesce(rp.x_studio_company_name, ''),
@@ -48,17 +46,14 @@ class vb_CustComm(models.Model):
                      left outer join res_country_state st on st.id = rp.state_id
                      where rp.customer = TRUE and (rp.parent_id is null or rp.parent_id = 0) and rp.name is not null and rp.name <> ''
                      """
-#                     left outer join ir_property ir on ir.res_id = 'res.partner,' + cast(rp.id as varchar(20))
-#                     left outer join account_payment_term pt on 'account.payment.term,' + cast(pt.id as varchar(20)) = ip.value_reference
         self.env.cr.execute(query)
         results = []
         for name, comp, hoff, st1, st2, cit, stte, zp, mfreq, edtime, stime, edfoot, sfoot, cpock, amanag, sguar, prgm, saed, oname, apcon, pterm in self.env.cr.fetchall():
             items = [name, comp, hoff, st1, st2, cit, stte, zp, mfreq, edtime, stime, edfoot, sfoot, cpock, amanag, sguar, prgm, saed, oname, apcon, pterm]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_GetCustNewUpdates2(self):
         query = """select coalesce(rp.name, ''),
                      coalesce(sp.x_studio_company_name, ''),
@@ -110,17 +105,14 @@ class vb_CustComm(models.Model):
                      left outer join res_partner_res_partner_category_rel rl14 on rl14.partner_id = rp.id and rl14.category_id = 8
                      where rp.customer = TRUE and (rp.parent_id is null or rp.parent_id = 0) and rp.name is not null and rp.name <> ''
                      """
-#                     inner join res_partner_res_partner_category_rel rl on rl.partner_id = rp.id
-#                    inner join res_partner_category rc on rc.id = rl.category_id
         self.env.cr.execute(query)
         results = []
         for name, stname, shst1, shst2, shcit, shstte, shzp, incat, inreas, phn, eml, react, isact, seggrp, cated, catseas, cleanps, incomp, isho, keyac, mercds, mchg, nopush, plano, rscp, sbt, sloc, taxem, useupc in self.env.cr.fetchall():
             items = [name, stname, shst1, shst2, shcit, shstte, shzp, incat, inreas, phn, eml, react, isact, seggrp, cated, catseas, cleanps, incomp, isho, keyac, mercds, mchg, nopush, plano, rscp, sbt, sloc, taxem, useupc]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_CustAR_AP(self):
         query = """select coalesce(rp.name, ''), coalesce(acr.code, ''), coalesce(acp.code, '')
                      from res_partner rp 
@@ -134,10 +126,9 @@ class vb_CustComm(models.Model):
         for name, arcode, apcode in self.env.cr.fetchall():
             items = [name, arcode, apcode]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_TestCustAR_AP(self):
         query = """select ir.name, ir.res_id, coalesce(ir.value_reference, ''), coalesce(rp.name, '')
                      from ir_property ir
@@ -150,10 +141,9 @@ class vb_CustComm(models.Model):
         for name, id, ref, rname in self.env.cr.fetchall():
             items = [name, id, ref, rname]
             results.append(items)
-        print(results)
         return results
 
-    @api.multi
+    @api.model
     def vb_GetSBTCustBranch(self):
         query = """select coalesce(rp.name, ''), coalesce(rp.x_studio_branch_number, ''), coalesce(acr.code, ''), coalesce(acp.code, '')
                      from res_partner rp
@@ -170,6 +160,5 @@ class vb_CustComm(models.Model):
         for name, bnum, arc, apc in self.env.cr.fetchall():
             items = [name, bnum, arc, apc]
             results.append(items)
-        print(results)
         return results
 

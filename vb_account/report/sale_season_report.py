@@ -67,7 +67,7 @@ class SaleSeasonReport(models.Model):
 
         from_ = """
                 account_move_line aml
-                WHERE aml.season_id IS NOT NULL AND aml.partner_id
+                WHERE aml.season_id IS NOT NULL AND aml.partner_id IS NOT NULL
         """ 
 
         groupby_ = """

@@ -10,7 +10,10 @@
         'sale', 'vb_product'
     ],
     'data': [
-        'views/sale_order_views.xml'
+        'security/ir.model.access.csv',
+        'views/sale_order_views.xml',
+        'report/barcode_label_views.xml',
+        'report/barcode_label_templates.xml'
     ],
     'qweb': ['static/src/xml/*.xml'],
     'installable': True,

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="barcode_label_view">
+            <t t-foreach="docs" t-as="label">
+                <t t-translation="off">
+                    ^XA
+                    ^FX First of First section (the two boxes on the bottom).
+                    ^FO5,2^GB800,200,3^FS
+                    ^FO400,5^GB1,195,3^FS
+                    ^CF0,20
+                    ^FO12,12^FDFrom:^FS
+                    ^CFA,20
+                    ^FO15,45^FD<t t-esc="label.from_name"/>^FS
+                    ^FO15,95^FD<t t-esc="label.from_address"/>^FS
+                    ^FO15,145^FD<t t-esc="label.from_city"/>, <t t-esc="label.from_state_id.code"/> <t t-esc="label.from_zip"/>^FS
+                    ^FO470,35^FD^FS
+                    ^FX First of Second section (the two boxes on the bottom).
+                    ^CF0,20
+                    ^FO425,12^FDShip To:^FS
+                    ^CFA,20
+                    ^FO430,45^FD<t t-esc="label.ship_to_name"/>^FS
+                    ^FO430,95^FD<t t-esc="label.ship_to_address"/>^FS
+                    ^FO430,145^FD<t t-esc="label.ship_to_city"/>, <t t-esc="label.ship_to_state_id.code"/> <t t-esc="label.ship_to_zip"/>^FS
+                    ^FO430,35^FD^FS
+                    ^FX Second of First section with recipient address and permit information.
+                    ^CFA,30
+                    ^FO5,2^GB800,400,3^FS
+                    ^FO400,200^GB1,195,3^FS
+                    ^CFA,20
+                    ^FO20,220^FDShip To Postal Code^FS
+                    ^CF0,20
+                    ^BY2,2,100
+                    ^FO50,260^BC^FD<t t-esc="label.ship_to_zip"/>^FS
+                    ^FX Second of Second section with recipient address and permit information.
+                    ^CFA,20
+                    ^FO450,220^FDCarrier: <t t-esc="label.carrier_name"/>^FS
+                    ^FO450,280^FDPRO^FS
+                    ^FX Third of First section with recipient address and permit information.
+                    ^CFA,30
+                    ^FO5,2^GB800,630,3^FS
+                    ^CF0,20
+                    ^FO20,420^FDPO#: <t t-esc="label.po_number"/>^FS
+                    ^CF0,20
+                    ^FO20,470^FDDPCI: <t t-esc="label.dpci"/>^FS
+                    ^CF0,20
+                    ^FO20,520^FDCasepack: <t t-esc="label.case_pack"/>^FS
+                    ^FX Fourth section with recipient address and permit information.
+                    ^CFA,30
+                    ^FO5,2^GB800,850,3^FS
+                    ^FO400,5^GB1,175,3^FS
+                    ^CF0,80
+                    ^FO30,670^FD<t t-esc="label.description"/>^FS
+                    ^FX Fifth section with recipient address and permit information.
+                    ^CFA,30
+                    ^FO5,2^GB800,1200,3^FS
+                    ^FO400,5^GB1,195,3^FS
+                    ^FO30,860^FDSSCC^FS
+                    ^BY5,100,180
+                    ^FB700,1,0,C,0
+                    ^FO40,930^BC^FD<t t-esc="label.sscc"/>^FS
+                    ^XZ
+                </t>
+            </t>
+        </template>
+
+        <record id="action_report_barcode_label_zpl" model="ir.actions.report">
+            <field name="name">Barcode Label (ZPL)</field>
+            <field name="model">barcode.label</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">vb_sale.barcode_label_view</field>
+            <field name="report_file">vb_sale.barcode_label_view</field>
+            <field name="binding_model_id" ref="vb_sale.model_barcode_label"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

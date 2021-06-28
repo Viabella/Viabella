@@ -1,4 +1,4 @@
-from odoo import models, fields, _
+from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 
 class SaleOrder(models.Model):
@@ -19,3 +19,12 @@ class SaleOrder(models.Model):
     def action_unhold(self):
         self.ensure_one()
         self.update({'state': 'sale'})
+        
+    @api.model
+    def get_orders(self, **kwargs):
+        orders = self.search([('state', '=', kwargs.get('state', False))])
+        return orders.read()
+    
+    def get_order_detail(self, **kwargs):
+        self.ensure_one()
+        return {field: self[field] for field in kwargs.get('fields', [])}

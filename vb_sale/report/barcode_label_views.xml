@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="barcode_label_view_tree" model="ir.ui.view">
+        <field name="name">barcode.label.view.tree</field>
+        <field name="model">barcode.label</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="from_name"/>
+                <field name="ship_to_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="barcode_label_view_form" model="ir.ui.view">
+        <field name="name">barcode.label.view.form</field>
+        <field name="model">barcode.label</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_name"/>
+                            <field name="from_address"/>
+                            <field name="from_city"/>
+                            <field name="from_state_id"/>
+                            <field name="from_zip"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="ship_to_name"/>
+                            <field name="ship_to_address"/>
+                            <field name="ship_to_city"/>
+                            <field name="ship_to_state_id"/>
+                            <field name="ship_to_zip"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="carrier_name"/>
+                            <field name="po_number"/>
+                            <field name="dpci"/>
+                            <field name="case_pack"/>
+                            <field name="description"/>
+                            <field name="sscc"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="barcode_label_action" model="ir.actions.act_window">
+        <field name="name">Generate Barcode Label</field>
+        <field name="res_model">barcode.label</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+     <menuitem
+        action="barcode_label_action" id="menu_barcode_label"
+        parent="stock.menu_stock_warehouse_mgmt"/>
+</odoo>
